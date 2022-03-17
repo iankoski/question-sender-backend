@@ -1,0 +1,41 @@
+====================================== ANÁLISE ======================================
+
+Criar as apis com os cadastros de company (empresa), customer (cliente), question (pergunta), alternative (alternativa), answer (resposta).
+
+Automaticamente um novo usuário criado é um cliente, que pode cadastrar empresas.
+
+O sistema deve permitir uma empresa cadastrar perguntas e visualizá-las.
+
+As perguntas podem ser cadastradas com tempo de vida em dias, quantos dias a pergunta ficará ativa para ser lida e respondida por um cliente.
+
+O sistema deverá ter uma função para totalizar as respostas de cada pergunta.
+
+Deverá também ter uma página no front end onde o cliente possa visualizar os totais. Esse totalizador também deverá ter um tempo de vida, ou seja, quantos
+dias essa visualização de totais ficará disponível para o usuário ver. Pode-se usar o mesmo tempo de vida da pergunta.
+
+O sistema deve permitir a empresa visualizar as respostas de suas perguntas.
+
+O sistema deve permitir que o cliente responda perguntas, somente das empresas que estão na localização próxima a sua. 
+
+A localização do cliente deverá ser verificada sempre que ele fizer login no sistema.
+
+Quando fizer login, ele poderá escolher as empresas cadastradas próximas a ele, e responder as perguntas.
+
+Uma pergunta somente pode ser respondida uma vez por cliente.
+
+======================== Conceitos e tecnologias utilizados =========================
+Jsonwebtoken e Chaves RSA. . 
+Microserviços. 
+Restfull. 
+Typescript e node js. 
+React JS. 
+CORs.
+Middlewares.
+Schemas de requisição.
+Arquitetura Multi-tenancy.
+=================================== METAS DIÁRIAS ===================================
+
+14/03/22: Criar a api para cadastro de customer, modificar as apis para que o login parta de customer
+15/03/22: Concluir o login em customer, e não mais em company. Testar todas as rotas criadas. Criar company como filha de customer.
+16/03/22: Criar o cadastro de questions.
+17/03/22: Testar os cadastros de questions, customer e company, após as alterações utilizando o auth de commons
