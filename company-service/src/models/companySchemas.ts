@@ -9,16 +9,9 @@ const companySchema = Joi.object({
         .min(3)
         .max(150)
         .required(),
-    email: Joi.string()
-        .email()
-        .required()
-        .min(8)
-        .max(150),
-    password: Joi.string()
-        .min(6)
-        .max(50)
-        .required(),
-
+    customerId: Joi.number()
+        .integer()
+        .min(1),   
     status: Joi.number()
         .integer()
         .min(100)
@@ -53,7 +46,7 @@ const companyUpdateSchema = Joi.object({
         .integer()
         .min(100)
         .max(400),
-        city: Joi.string()
+    city: Joi.string()
         .min(3)
         .max(50),
     country: Joi.string()

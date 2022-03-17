@@ -1,11 +1,11 @@
 {
-  "name": "company-service",
+  "name": "question-service",
   "version": "1.0.0",
-  "description": "serviços de crud para empresa (company)",
+  "description": "serviços de crud para cliente (question)",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && ts-node -r dotenv/config tsconfig-paths/register ./dist/company-service/src/server",
-    "compile": "tsc && ts-node -r dotenv/config -r tsconfig-paths/register ./dist/company-service/src/server",
+    "start": "tsc && ts-node -r dotenv/config tsconfig-paths/register ./dist/question-service/src/server",
+    "compile": "tsc && ts-node -r dotenv/config -r tsconfig-paths/register ./dist/question-service/src/server",
     "dev": "nodemon -e ts,json --ignore dist --exec \"npm run compile\""
   },
   "author": "juliano iankoski",
@@ -24,14 +24,14 @@
     "longjohn": "^0.2.12",
     "mysql2": "^2.3.3",
     "sequelize": "^6.17.0",
-    "ts-node": "^10.4.0",
-    "tsconfig-paths": "^3.11.0",
-    "typescript": "^4.4.4"
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.14.0",
+    "typescript": "^4.6.2"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^8.5.5",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/validator": "^13.7.1",
     "express": "^4.17.1",
-    "nodemon": "^2.0.14"
+    "nodemon": "^2.0.15"
   }
 }

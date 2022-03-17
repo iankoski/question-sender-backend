@@ -17,7 +17,6 @@ async function validateAuth(req: Request, res: Response, next: any){
     try{
         const token = req.headers['x-access-token'] as string;
         if (!token) return res.status(401).end();
-        
         const payload = await auth.verify(token);
         if (!payload) return res.status(401).end();
         /*Como manda a especificação do http, a informação vai pelo locals do response*/        

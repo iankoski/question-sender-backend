@@ -7,7 +7,7 @@ interface ICompanyCreationAttributes extends Optional<ICompany, "id">{}
 
 export interface ICompanyModel extends Model<ICompany, ICompanyCreationAttributes>, ICompany{}
 
-export default database.define<ICompanyModel>('company',{
+const Company = database.define<ICompanyModel>('company',{
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
             primaryKey: true,
@@ -18,21 +18,16 @@ export default database.define<ICompanyModel>('company',{
             type: Sequelize.STRING(150),
             allowNull: false,
         },
-        email: {
-            type: Sequelize.STRING(150),
-            allowNull: false,
-            unique: true
-        },
-        password: {
-            type: Sequelize.STRING(100),
-            allowNull: false
-        },
-        /* Dados da geolocalização */
+        customerId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            allowNull: false,        
+        },      
         status: {
             type: Sequelize.SMALLINT.UNSIGNED,
             defaultValue: 100,
             allowNull: false
         },
+        /* Dados da geolocalização */
         city: {
             type: Sequelize.STRING(150),
             allowNull: true
@@ -58,4 +53,6 @@ export default database.define<ICompanyModel>('company',{
             allowNull: true
         }
 });
+Company.sync();
+export default Company;
 
