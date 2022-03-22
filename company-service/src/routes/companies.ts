@@ -1,9 +1,13 @@
 import {Router} from 'express';
 import companiesController from '../controllers/companies';
-import {validateCompanySchema, validateUpdateCompanySchema} from './middlewares';
+import {validateCompanySchema, validateUpdateCompanySchema, validateLoginSchema} from './middlewares';
 import middlewareCommons from 'ms-commons/api/routes/middlewares';
 
 const router = Router();
+
+router.post('/companies/login', validateLoginSchema, companiesController.loginCompany);
+
+router.post('/companies/logout', middlewareCommons.validateAuth, companiesController.logoutCompany);
 
 router.get('/companies/:id', middlewareCommons.validateAuth, companiesController.getCompany);
 //Também não valida
@@ -15,6 +19,6 @@ router.delete('/companies/:id', middlewareCommons.validateAuth, companiesControl
 
 router.get('/companies/', middlewareCommons.validateAuth, companiesController.getCompanies);
 
-router.post('/companies/', middlewareCommons.validateAuth, validateCompanySchema, companiesController.addCompany);
+router.post('/companies/', validateCompanySchema, companiesController.addCompany);
 
 export default router;

@@ -1,13 +1,13 @@
 import Sequelize, {Model, Optional} from 'sequelize';
 import database from 'ms-commons/data/db';
-import { IQuestion } from './questions';
+import { IAlternative } from './alternatives';
 
 
-interface IQuestionCreationAttributes extends Optional<IQuestion, "id">{}
+interface IAlternativeCreationAttributes extends Optional<IAlternative, "id">{}
 
-export interface IQuestionModel extends Model<IQuestion, IQuestionCreationAttributes>, IQuestion{}
+export interface IAlternativeModel extends Model<IAlternative, IAlternativeCreationAttributes>, IAlternative{}
 
-const Question = database.define<IQuestionModel>('question',{
+const Alternative = database.define<IAlternativeModel>('alternative',{
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
             primaryKey: true,
@@ -17,7 +17,11 @@ const Question = database.define<IQuestionModel>('question',{
         companyId: {
             type: Sequelize.INTEGER.UNSIGNED,
             allowNull: false,        
-        },
+        }, 
+        questionId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            allowNull: false,        
+        },            
         description: {
             type: Sequelize.STRING(150),
             allowNull: false,
@@ -26,16 +30,8 @@ const Question = database.define<IQuestionModel>('question',{
             type: Sequelize.SMALLINT.UNSIGNED,
             defaultValue: 100,
             allowNull: false
-        },
-        startDate: {
-            type: Sequelize.DATE,
-            allowNull: false
-        },
-        endDate: {
-            type: Sequelize.DATE,
-            allowNull: false
-        }             
+        }
 });
 
-export default Question;
+export default Alternative;
 

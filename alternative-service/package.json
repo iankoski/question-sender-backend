@@ -1,11 +1,11 @@
 {
-  "name": "customer-service",
+  "name": "alternative-service",
   "version": "1.0.0",
-  "description": "serviços de crud para cliente (customer)",
+  "description": "serviços de crud para alternativa (alternative)",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && ts-node -r dotenv/config tsconfig-paths/register ./dist/customer-service/src/server",
-    "compile": "tsc && ts-node -r dotenv/config -r tsconfig-paths/register ./dist/customer-service/src/server",
+    "start": "tsc && ts-node -r dotenv/config tsconfig-paths/register ./dist/alternative-service/src/server",
+    "compile": "tsc && ts-node -r dotenv/config -r tsconfig-paths/register ./dist/alternative-service/src/server",
     "dev": "nodemon -e ts,json --ignore dist --exec \"npm run compile\""
   },
   "author": "juliano iankoski",

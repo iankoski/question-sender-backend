@@ -1,11 +1,10 @@
-import { QuestionStatus } from './questionStatus';
+import { AlternativeStatus } from './alternativeStatus';
 /* Schema do TypeScript => validação de tipos */
-export interface IQuestion {
+export interface IAlternative {
     /*O id pode ser opcional, pois o sequelize vai gerear um*/
     id?: number,
     description: string,
     companyId: number,
-    status?: number,
-    startDate: Date,
-    endDate: Date
+    questionId: number,
+    status?: number
 }

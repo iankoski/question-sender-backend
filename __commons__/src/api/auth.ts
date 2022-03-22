@@ -6,12 +6,12 @@ const publicKey = fs.readFileSync(path.resolve(__dirname, '../../keys/public.key
 //RS256 é o algorítmo de hash usado para trabalhar a chave, do RSA
 const jwtAlgorithm = "RS256";
 
-export type Token = {customerId: number};
+export type Token = {companyId: number};
 
 async function verify(token: string){
     try{
         const decoded : Token = await jwt.verify(token, publicKey, {algorithm: [jwtAlgorithm]} as VerifyOptions) as Token;
-        return {customerId: decoded.customerId};
+        return {companyId: decoded.companyId};
     }catch(error){
         console.log(`verify: ${error}`);
         return null;

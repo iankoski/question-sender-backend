@@ -18,4 +18,8 @@ async function validateAuthentication(req: Request, res: Response, next: any){
     return commonsMiddleware.validateAuth(req, res, next);
 }
 
-export {validateCompanySchema, validateUpdateCompanySchema, validateAuthentication};
+function validateLoginSchema(req: Request, res: Response, next: any){
+    return commonsMiddleware.validateSchema(loginSchema, req, res, next);
+}
+
+export {validateCompanySchema, validateUpdateCompanySchema, validateAuthentication, validateLoginSchema};

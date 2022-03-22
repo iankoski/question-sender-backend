@@ -1,12 +1,12 @@
 ====================================== ANÁLISE ======================================
 
-Criar as apis com os cadastros de company (empresa), customer (cliente), question (pergunta), alternative (alternativa), answer (resposta).
+Criar as apis com os cadastros de company (empresa), /*customer (cliente),*/ question (pergunta), alternative (alternativa), answer (resposta).
 
-Automaticamente um novo usuário criado é um cliente, que pode cadastrar empresas.
+/*Automaticamente um novo usuário criado é um cliente, que pode cadastrar empresas.*/
 
 O sistema deve permitir uma empresa cadastrar perguntas e visualizá-las.
 
-As perguntas podem ser cadastradas com tempo de vida em dias, quantos dias a pergunta ficará ativa para ser lida e respondida por um cliente.
+As perguntas devem ser cadastradas com uma data de início e data fim em que elas podem ser respondidas.
 
 O sistema deverá ter uma função para totalizar as respostas de cada pergunta.
 
@@ -15,13 +15,13 @@ dias essa visualização de totais ficará disponível para o usuário ver. Pode
 
 O sistema deve permitir a empresa visualizar as respostas de suas perguntas.
 
-O sistema deve permitir que o cliente responda perguntas, somente das empresas que estão na localização próxima a sua. 
+O sistema deve permitir que o cliente responda perguntas, acessadas através de leitura de qr code. 
 
-A localização do cliente deverá ser verificada sempre que ele fizer login no sistema.
+/*A localização do cliente deverá ser verificada sempre que ele fizer login no sistema.
 
-Quando fizer login, ele poderá escolher as empresas cadastradas próximas a ele, e responder as perguntas.
+Quando fizer login, ele poderá escolher as empresas cadastradas próximas a ele, e responder as perguntas.*/
 
-Uma pergunta somente pode ser respondida uma vez por cliente.
+Uma pergunta somente pode ser respondida uma vez por cliente. Deverá ser verificado o ID do dispositivo e gravado junto à resposta.
 
 ======================== Conceitos e tecnologias utilizados =========================
 Jsonwebtoken e Chaves RSA. . 
@@ -39,3 +39,6 @@ Arquitetura Multi-tenancy.
 15/03/22: Concluir o login em customer, e não mais em company. Testar todas as rotas criadas. Criar company como filha de customer.
 16/03/22: Criar o cadastro de questions.
 17/03/22: Testar os cadastros de questions, customer e company, após as alterações utilizando o auth de commons
+21/03/22: Remover customer-service, o login passa a ser feito por um userName em company. Remover os dados de geolocalização de company e adicionar userName para login.
+22/03/22: Corrigir os bugs no controller de questions, criar o cadastro de alternatives (alterantiva), vinculada a questions
+23/03/22: Criar os cadastros de answers (respostas). Testar o cadastro de respostas

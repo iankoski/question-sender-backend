@@ -11,7 +11,7 @@ async function getQuestions(req: Request, res: Response, next: any) {
     try {
         const token = controllerCommons.getToken(res) as Token;
         const includeRemoved = req.query.includeRemoved == 'true';
-        const questions = await repository.findAll(token.customerId, includeRemoved);
+        const questions = await repository.findAll(token.companyId, includeRemoved);
         res.json(questions);
     } catch (error) {
         console.log(`getQuestions: ${error}`);
@@ -24,10 +24,9 @@ async function getQuestion(req: Request, res: Response, next: any) {
         const id = parseInt(req.params.id);
         const companyId = parseInt(req.params.id);
         if (!id) return res.status(400).json({ message: 'id is required' });
-        if (!companyId) return res.status(400).json({ message: 'companyId is required' });
 
         const token = controllerCommons.getToken(res) as Token;
-        const question = await repository.findById(id, token.customerId, companyId);
+        const question = await repository.findById(id, token.companyId);
         if (question === null) return res.status(404).json({ message: 'question not found' });
         else res.json(question);
     } catch (error) {
@@ -55,7 +54,7 @@ async function setQuestion(req: Request, res: Response, next: any){
 
         const token = controllerCommons.getToken(res) as Token;
         const question = req.body as IQuestion;
-        const result = await repository.set(questionId, question, token.customerId);
+        const result = await repository.set(questionId, question);
         if (!result) return res.sendStatus(404);
         
         res.json(result);
@@ -82,7 +81,7 @@ async function deleteQuestion(req: Request, res: Response, next: any){
             const questionParams = {
                 status: QuestionStatus.REMOVED
             } as IQuestion;
-            const updatedQuestion = repository.set(questionId, questionParams, token.customerId);
+            const updatedQuestion = repository.set(questionId, questionParams);
             if (updatedQuestion) {
                 res.json(updatedQuestion);
             }

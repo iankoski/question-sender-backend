@@ -9,30 +9,20 @@ const companySchema = Joi.object({
         .min(3)
         .max(150)
         .required(),
-    customerId: Joi.number()
-        .integer()
-        .min(1),   
+    userName: Joi.string()
+        .min(3)
+        .max(150)
+        .required(),     
+    password: Joi.string()
+        .min(6)
+        .max(200)
+        .required(),          
     status: Joi.number()
         .integer()
         .min(100)
         .max(400),
-    city: Joi.string()
-        .min(3)
-        .max(50),
-    country: Joi.string()
-        .min(3)
-        .max(50),
-
-    region: Joi.string()
-        .min(3)
-        .max(50),
-    latitude: Joi.number(),
-
-    longitude: Joi.number(),
-
-    timezone: Joi.string()
-        .min(6)
-        .max(50)
+    urlQrCode: Joi.string()
+        
 })
 
 const companyUpdateSchema = Joi.object({
@@ -41,39 +31,22 @@ const companyUpdateSchema = Joi.object({
         .max(150),
     password: Joi.string()
         .min(6)
-        .max(50),
+        .max(200),
     status: Joi.number()
         .integer()
         .min(100)
         .max(400),
-    city: Joi.string()
-        .min(3)
-        .max(50),
-    country: Joi.string()
-        .min(3)
-        .max(50),
-
-    region: Joi.string()
-        .min(3)
-        .max(50),
-    latitude: Joi.number(),
-
-    longitude: Joi.number(),
-    
-    timezone: Joi.string()
-        .min(6)
-        .max(50)        
+    uqlQrCode: Joi.string()    
 })
 
 const loginSchema = Joi.object({
-    email: Joi.string()
-        .email()
-        .required()
-        .min(8)
-        .max(150),
+    userName: Joi.string()
+        .min(3)
+        .max(150)
+        .required(),
     password: Joi.string()
         .min(6)
-        .max(50)
+        .max(200)
         .required()
 })
 

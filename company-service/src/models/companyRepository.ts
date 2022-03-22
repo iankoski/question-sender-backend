@@ -3,26 +3,26 @@ import {ICompany} from './companies';
 import {DestroyOptions, Op} from 'sequelize';
 import { CompanyStatus } from './companyStatus';
 
-function findAll(customerId: number, includeRemoved: boolean){
+function findAll(includeRemoved: boolean){
     if(includeRemoved){
-        return companyModel.findAll<ICompanyModel>({where: {customerId: customerId}});
+        return companyModel.findAll<ICompanyModel>();
     }
     //Excluindo os com status REMOVED
-    return companyModel.findAll<ICompanyModel>({where: {customerId: customerId, status:{[Op.not]: CompanyStatus.REMOVED}}});
+    return companyModel.findAll<ICompanyModel>({where: {status:{[Op.not]: CompanyStatus.REMOVED}}});
 }
 
-function findById(companyId: number, customerId: number){
-    return companyModel.findOne<ICompanyModel>({where: {id: companyId, customerId: customerId}});
+function findById(companyId: number){
+    return companyModel.findOne<ICompanyModel>({where: {id: companyId}});
 }
 
 function add(company: ICompany){
     return companyModel.create(company);
 }
 
-async function set(companyId: number, company: ICompany, customerId: number){
+async function set(companyId: number, company: ICompany){
     /* Em tese findById funcionaria, porém é recomendado usar findOne passando
      * o id da tabela e também o id da tabela mãe (accountId no caso) */
-    const originalCompany = await companyModel.findOne({where: {id: companyId, customerId: customerId}});
+    const originalCompany = await companyModel.findOne({where: {id: companyId}});
     if (!originalCompany) return null;
 
     if (company.name) originalCompany.name = company.name;
@@ -37,11 +37,15 @@ function remove (id: number){
     return companyModel.destroy({where: {id: id}} as DestroyOptions<ICompany>);
 }
 
-function removeByEmail (email: string){
-    return companyModel.destroy({where: {email: email}} as DestroyOptions<ICompany>);
-}
-function removeById(companyId: number, customerId: number){
-    return companyModel.destroy({where: {id: companyId, customerId: customerId}});
+function findByUserName(userName: string){
+    return companyModel.findOne<ICompanyModel>({where: {userName: userName}});
 }
 
-export default {findAll, findById, add, set, remove, removeByEmail, removeById};
+function removeByUserName (userName: string){
+    return companyModel.destroy({where: {userName: userName}} as DestroyOptions<ICompany>);
+}
+function removeById(companyId: number){
+    return companyModel.destroy({where: {id: companyId}});
+}
+
+export default {findAll, findById, add, set, remove, findByUserName, removeByUserName, removeById};

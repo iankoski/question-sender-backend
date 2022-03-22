@@ -24,10 +24,10 @@ function comparePassword(password: string, hashPassword: string){
 }
 
 
-function sign(customerId: number){
+function sign(companyId: number){
     /* Chave pública disponibilizada para todas as APIS que forem
      * receber tokens autenticados por mim */
-    const token : Token = {customerId};
+    const token : Token = {companyId};
     return jwt.sign(token, privateKey, {expiresIn: jwtExpires,algorithm: jwtAlgorithm});
 }
 

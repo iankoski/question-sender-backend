@@ -3,15 +3,15 @@ import {IQuestion} from './questions';
 import {DestroyOptions, Op} from 'sequelize';
 import {QuestionStatus} from './questionStatus';
 
-function findAll(customerId: number, includeRemoved: boolean){
+function findAll(companyId: number, includeRemoved: boolean){
     if (includeRemoved)
-        return questionModel.findAll<IQuestionModel>({where: {customerId: customerId}});
+        return questionModel.findAll<IQuestionModel>({where: {companyId: companyId}});
     //Excluindo os com status REMOVED
-    return questionModel.findAll<IQuestionModel>({where: {customerId: customerId, status:{[Op.not]: QuestionStatus.REMOVED}}});
+    return questionModel.findAll<IQuestionModel>({where: {companyId: companyId, status:{[Op.not]: QuestionStatus.REMOVED}}});
 };
 
-function findById(id: number, customerId: number, companyId: number){
-    return questionModel.findAll<IQuestionModel>({where: {id: id, customerId: customerId, companyId: companyId}});
+function findById(id: number, companyId: number){
+    return questionModel.findOne<IQuestionModel>({where: {id: id, companyId: companyId}});
 }
 
 function findByCompanyId(companyId: number){
@@ -22,14 +22,15 @@ function add(question: IQuestion){
     return questionModel.create(question);
 }
 
-async function set(questionId: number, question: IQuestion, customerId: number){
+async function set(questionId: number, question: IQuestion){
     /* Em tese findById funcionaria, porém é recomendado usar findOne passando
      * o id da tabela e também o id da tabela mãe (accountId no caso) */
-    const originalQuestion = await questionModel.findOne({where: {id: questionId, customerId: customerId}});
+    const originalQuestion = await questionModel.findOne({where: {id: questionId}});
     if (!originalQuestion) return null;
 
     if (question.description) originalQuestion.description = question.description;
-    if (question.timeToLive) originalQuestion.timeToLive = question.timeToLive;
+    if (question.startDate) originalQuestion.startDate = question.startDate;
+    if (question.endDate) originalQuestion.endDate = question.endDate;
     if (question.status) originalQuestion.status = question.status;
 
     const result = await originalQuestion.save();

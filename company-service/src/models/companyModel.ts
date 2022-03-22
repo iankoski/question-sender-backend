@@ -18,40 +18,25 @@ const Company = database.define<ICompanyModel>('company',{
             type: Sequelize.STRING(150),
             allowNull: false,
         },
-        customerId: {
-            type: Sequelize.INTEGER.UNSIGNED,
-            allowNull: false,        
-        },      
+        userName: {
+            type: Sequelize.STRING(150),
+            allowNull: false,
+            unique: true
+        },  
+        password: {
+            type: Sequelize.STRING(200),
+            allowNull: false,
+        },                  
         status: {
             type: Sequelize.SMALLINT.UNSIGNED,
             defaultValue: 100,
             allowNull: false
         },
-        /* Dados da geolocalização */
-        city: {
+        urlQrCode: {
             type: Sequelize.STRING(150),
-            allowNull: true
-        },
-        country: {
-            type: Sequelize.STRING(150),
-            allowNull: true
-        },   
-        region: {
-            type: Sequelize.STRING(150),
-            allowNull: true
-        },             
-        latitute: {
-            type: Sequelize.DOUBLE,
-            allowNull: true
-        },
-        longitute: {
-            type: Sequelize.DOUBLE,
-            allowNull: true
-        },
-        timezone: {
-            type: Sequelize.STRING(150),
-            allowNull: true
-        }
+            allowNull: true,            
+        }    
+       
 });
 Company.sync();
 export default Company;
