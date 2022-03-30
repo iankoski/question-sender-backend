@@ -5,6 +5,8 @@ import middlewareCommons from 'ms-commons/api/routes/middlewares';
 
 const router = Router();
 
+router.get('/questions/teste/:companyId', questionsController.getQuestionsByDate);
+
 router.get('/questions/:companyId', middlewareCommons.validateAuth, questionsController.getQuestions);
 
 router.get('/questions/:id', middlewareCommons.validateAuth, questionsController.getQuestion);
@@ -14,7 +16,7 @@ router.patch('/questions/:id', middlewareCommons.validateAuth, validateUpdateQue
 
 router.delete('/questions/:id', middlewareCommons.validateAuth, questionsController.deleteQuestion);
 
-router.post('/questions/', middlewareCommons.validateAuth, questionsController.addQuestion);
+router.post('/questions/', middlewareCommons.validateAuth, validateQuestionSchema, questionsController.addQuestion);
 
 router.get('/questions/', middlewareCommons.validateAuth, questionsController.getQuestions);
 

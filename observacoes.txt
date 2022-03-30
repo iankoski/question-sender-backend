@@ -34,7 +34,7 @@ Middlewares.
 Schemas de requisição.
 Arquitetura Multi-tenancy.
 =================================== METAS DIÁRIAS ===================================
-
+BACKEND
 14/03/22: Criar a api para cadastro de customer, modificar as apis para que o login parta de customer
 15/03/22: Concluir o login em customer, e não mais em company. Testar todas as rotas criadas. Criar company como filha de customer.
 16/03/22: Criar o cadastro de questions.
@@ -42,3 +42,8 @@ Arquitetura Multi-tenancy.
 21/03/22: Remover customer-service, o login passa a ser feito por um userName em company. Remover os dados de geolocalização de company e adicionar userName para login.
 22/03/22: Corrigir os bugs no controller de questions, criar o cadastro de alternatives (alterantiva), vinculada a questions
 23/03/22: Criar os cadastros de answers (respostas). Testar o cadastro de respostas
+24/03/22: Concluir answers-service, implantar alternativeLetter para alternative
+28/03/22: Implantar alternativeLetter para alternative(Alternativas não terão a letra gravada no banco, somente serão exibidas no front ordenados pelo seu ID). 
+        Criar função para retornar as perguntas pelas datas.
+FRONTEND
+29/03/22: Criar a página de login e sign in

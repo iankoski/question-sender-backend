@@ -19,6 +19,18 @@ async function getAlternatives(req: Request, res: Response, next: any) {
         res.sendStatus(400);
     }
 }
+/*Verificar a necessidade*/
+async function getNextAlternativeLetter(req: Request, res: Response, next: any) {
+    try{
+        const nextAlternativeNumber = parseInt(req.params.nextAlternativeNumber);
+        const teste = String.fromCharCode('a'.charCodeAt(nextAlternativeNumber));
+        if (nextAlternativeNumber === null) res.status(400).json({ message: 'alternative number is required' });
+        res.status(200).json(String.fromCharCode('A'.charCodeAt(0)+nextAlternativeNumber));
+    }catch(error){
+        console.log(`getNextAlternativeLetter: ${error}`);
+        res.sendStatus(400);        
+    }
+}
 
 async function getAlternative(req: Request, res: Response, next: any) {
     try {
@@ -96,4 +108,4 @@ async function deleteAlternative(req: Request, res: Response, next: any){
     }
 }
 
-export default { getAlternatives, getAlternative, addAlternative, setAlternative, deleteAlternative};
+export default { getAlternatives, getAlternative, addAlternative, setAlternative, deleteAlternative, getNextAlternativeLetter};

@@ -18,5 +18,4 @@ router.post('/alternatives/', middlewareCommons.validateAuth, alternativesContro
 
 router.get('/alternatives/', middlewareCommons.validateAuth, alternativesController.getAlternatives);
 
-
 export default router;

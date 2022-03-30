@@ -26,7 +26,7 @@ const Question = database.define<IQuestionModel>('question',{
             type: Sequelize.SMALLINT.UNSIGNED,
             defaultValue: 100,
             allowNull: false
-        },
+        },       
         startDate: {
             type: Sequelize.DATE,
             allowNull: false
@@ -34,7 +34,7 @@ const Question = database.define<IQuestionModel>('question',{
         endDate: {
             type: Sequelize.DATE,
             allowNull: false
-        }             
+        }
 });
 
 export default Question;

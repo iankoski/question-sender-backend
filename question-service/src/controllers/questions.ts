@@ -35,6 +35,18 @@ async function getQuestion(req: Request, res: Response, next: any) {
     }
 }
 
+async function getQuestionsByDate(req: Request, res: Response, next: any) {
+    try{
+        const companyId = parseInt(req.params.companyId);
+        if (!companyId) return res.status(400).json({message: 'companyid is required'});
+        const questions = await repository.findByBetweenDate(companyId);
+        res.status(200).json(questions);
+    }catch(error){
+        console.log(`getQuestionsByDate: ${error}`);
+        res.sendStatus(400);        
+    }
+}
+
 async function addQuestion(req: Request, res: Response, next: any) {
     try {
         const newQuestion = req.body as IQuestion;
@@ -43,7 +55,7 @@ async function addQuestion(req: Request, res: Response, next: any) {
         res.status(201).json(newQuestion);
     } catch(error) {
         console.log(error);
-        res.status(400).end();
+        res.sendStatus(400);
     }
 }
 
@@ -95,4 +107,4 @@ async function deleteQuestion(req: Request, res: Response, next: any){
     }
 }
 
-export default { getQuestions, getQuestion, addQuestion, setQuestion, deleteQuestion};
+export default { getQuestions, getQuestion, addQuestion, setQuestion, deleteQuestion, getQuestionsByDate};
