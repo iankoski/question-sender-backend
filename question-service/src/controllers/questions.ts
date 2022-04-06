@@ -26,7 +26,7 @@ async function getQuestion(req: Request, res: Response, next: any) {
         if (!id) return res.status(400).json({ message: 'id is required' });
 
         const token = controllerCommons.getToken(res) as Token;
-        const question = await repository.findById(id, token.companyId);
+        const question = await repository.findById(id);
         if (question === null) return res.status(404).json({ message: 'question not found' });
         else res.json(question);
     } catch (error) {
@@ -50,6 +50,8 @@ async function getQuestionsByDate(req: Request, res: Response, next: any) {
 async function addQuestion(req: Request, res: Response, next: any) {
     try {
         const newQuestion = req.body as IQuestion;
+        const token = controllerCommons.getToken(res) as Token;
+        newQuestion.companyId = token.companyId;
         const result = await repository.add(newQuestion);
         newQuestion.id = result.id; 
         res.status(201).json(newQuestion);

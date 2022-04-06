@@ -46,4 +46,9 @@ BACKEND
 28/03/22: Implantar alternativeLetter para alternative(Alternativas não terão a letra gravada no banco, somente serão exibidas no front ordenados pelo seu ID). 
         Criar função para retornar as perguntas pelas datas.
 FRONTEND
-29/03/22: Criar a página de login e sign in
+29/03/22: Criar a página de login
+30/03/22: Criar página de sign in 
+31/03/22: Integrar o Login e Sign in com o backend
+04/04/22: Criar página de listar e cadastrar questions
+05/04/22: Testes com a lista de perguntas e seu cadastro
+06/04/22: Resolver o problema das datas das questions

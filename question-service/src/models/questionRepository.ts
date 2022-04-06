@@ -10,8 +10,8 @@ function findAll(companyId: number, includeRemoved: boolean) {
     return questionModel.findAll<IQuestionModel>({ where: { companyId: companyId, status: { [Op.not]: QuestionStatus.REMOVED } } });
 };
 
-function findById(id: number, companyId: number) {
-    return questionModel.findOne<IQuestionModel>({ where: { id: id, companyId: companyId } });
+function findById(id: number) {
+    return questionModel.findOne<IQuestionModel>({ where: { id: id} });
 }
 
 function findByCompanyId(companyId: number) {
