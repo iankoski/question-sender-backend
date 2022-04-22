@@ -3,27 +3,14 @@ import { IAlternative } from './alternatives';
 import { DestroyOptions, Op } from 'sequelize';
 import { AlternativeStatus } from './alternativeStatus';
 
-function findAll(companyId: number, includeRemoved: boolean) {
-    if (includeRemoved)
-        return alternativeModel.findAll<IAlternativeModel>({ where: { companyId: companyId } });
-    //Excluindo os com status REMOVED
-    return alternativeModel.findAll<IAlternativeModel>(
-        {
-            where: {
-                companyId: companyId,
-                status: { [Op.not]: AlternativeStatus.REMOVED }
-            }
-        });
-};
 
-function findByQuestion(companyId: number, includeRemoved: boolean, questionId: number) {
+function findByQuestion(includeRemoved: boolean, questionId: number) {
     if (includeRemoved)
-        return alternativeModel.findAll<IAlternativeModel>({ where: { companyId: companyId, questionId: questionId } });
+        return alternativeModel.findAll<IAlternativeModel>({ where: {questionId: questionId } });
     //Excluindo os com status REMOVED
     return alternativeModel.findAll<IAlternativeModel>(
         {
             where: {
-                companyId: companyId,
                 questionId: questionId,
                 status: { [Op.not]: AlternativeStatus.REMOVED },
             },
@@ -31,16 +18,19 @@ function findByQuestion(companyId: number, includeRemoved: boolean, questionId: 
         });
 };
 
-function findById(id: number, companyId: number) {
-    return alternativeModel.findOne<IAlternativeModel>({ where: { id: id, companyId: companyId } });
+function findById(id: number) {
+    return alternativeModel.findOne<IAlternativeModel>({ where: { id: id} });
 }
 
-function findByCompanyId(companyId: number) {
-    return alternativeModel.findAll<IAlternativeModel>({ where: { companyId: companyId } });
-}
-
-function add(alternative: IAlternative) {
-    return alternativeModel.create(alternative);
+function add(alternativesList: IAlternative[]) {
+    var newAlternatives: IAlternative[];
+    return alternativeModel.bulkCreate(alternativesList);/**
+    alternativesList.map(a => {
+        let alternative = {description: a.description, questionId: a.questionId} as IAlternative;
+        console.log('teste add alternative: '+alternative);
+        //newAlternatives.push(alternativeModel.create(alternative));
+    });*/
+   
 }
 
 async function set(alternativeId: number, alternative: IAlternative) {
@@ -61,4 +51,4 @@ async function removeById(id: number) {
     return alternativeModel.destroy({ where: { id: id } } as DestroyOptions<IAlternative>);
 }
 
-export default { findAll, findById, add, set, removeById, findByCompanyId, findByQuestion };
+export default {  findById, add, set, removeById, findByQuestion };

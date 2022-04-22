@@ -54,6 +54,7 @@ async function addQuestion(req: Request, res: Response, next: any) {
         newQuestion.companyId = token.companyId;
         const result = await repository.add(newQuestion);
         newQuestion.id = result.id; 
+        console.log('newQuestion: '+newQuestion.id);
         res.status(201).json(newQuestion);
     } catch(error) {
         console.log(error);

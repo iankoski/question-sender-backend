@@ -14,7 +14,7 @@ router.patch('/alternatives/:id', middlewareCommons.validateAuth, validateUpdate
 
 router.delete('/alternatives/:id', middlewareCommons.validateAuth, alternativesController.deleteAlternative);
 
-router.post('/alternatives/', middlewareCommons.validateAuth, alternativesController.addAlternative);
+router.post('/alternatives/', middlewareCommons.validateAuth, /*validateAlternativeSchema, */alternativesController.addAlternative);
 
 router.get('/alternatives/', middlewareCommons.validateAuth, alternativesController.getAlternatives);
 

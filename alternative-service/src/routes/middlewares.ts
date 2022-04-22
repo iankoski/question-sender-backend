@@ -5,7 +5,8 @@ import commonsMiddleware from 'ms-commons/api/routes/middlewares';
 /*Valida o schema recebido como parâmetro de entrada*/
 
 function validateAlternativeSchema(req: Request, res: Response, next: any){
-    return commonsMiddleware.validateSchema(alternativeSchema, req, res, next);
+    console.log(req.body);
+    //return commonsMiddleware.validateSchema(alternativeSchema, req, res, next);
 }
 
 function validateUpdateAlternativeSchema(req: Request, res: Response, next: any){
