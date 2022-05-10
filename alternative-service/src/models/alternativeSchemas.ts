@@ -14,17 +14,23 @@ const alternativeSchema = Joi.array().items(Joi.object({
         .integer()
         .min(100)
         .max(400)
-
 }))
 
-const alternativeUpdateSchema = Joi.object({
-
+const alternativeUpdateSchema = Joi.array().items(Joi.object({
+    id: Joi.number()
+        .integer()
+        .min(1),
+    questionId: Joi.number()
+        .integer()
+        .min(1),
     description: Joi.string()
         .min(5),
     status: Joi.number()
         .integer()
         .min(100)
-        .max(400)    
-})
+        .max(400),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date()
+}))
 
-export { alternativeSchema, alternativeUpdateSchema};
+export { alternativeSchema, alternativeUpdateSchema };

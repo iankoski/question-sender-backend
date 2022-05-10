@@ -5,7 +5,6 @@ import controllerCommons from 'ms-commons/api/controllers/controller';
 import {AlternativeStatus} from '../models/alternativeStatus';
 import {Token} from 'ms-commons/api/auth';
 
-const alternatives: IAlternative[] = [];
 
 async function getAlternatives(req: Request, res: Response, next: any) {
     try {
@@ -18,7 +17,7 @@ async function getAlternatives(req: Request, res: Response, next: any) {
         res.sendStatus(400);
     }
 }
-/*Verificar a necessidade*/
+/*Verificar a necessidade*//*
 async function getNextAlternativeLetter(req: Request, res: Response, next: any) {
     try{
         const nextAlternativeNumber = parseInt(req.params.nextAlternativeNumber);
@@ -29,7 +28,7 @@ async function getNextAlternativeLetter(req: Request, res: Response, next: any) 
         console.log(`getNextAlternativeLetter: ${error}`);
         res.sendStatus(400);        
     }
-}
+}*/
 
 async function getAlternative(req: Request, res: Response, next: any) {
     try {
@@ -45,17 +44,13 @@ async function getAlternative(req: Request, res: Response, next: any) {
 }
 
 async function addAlternative(req: Request, res: Response, next: any) {
-    try {        
-        /*var alternativesList = req.body as IAlternative;
-        alternativesList.map((a) => (
-
-        ));*/
+    try {
         const newAlternative = req.body as IAlternative[];
         console.log('teste addAlternative');
         console.log(` ${newAlternative}`);
         const result = await repository.add(newAlternative);
         //newAlternative.id = result.id; 
-        res.status(201).json(newAlternative);
+        res.status(201).json(result);
     } catch(error) {
         console.log(error);
         res.sendStatus(400);
@@ -64,13 +59,16 @@ async function addAlternative(req: Request, res: Response, next: any) {
 
 async function setAlternative(req: Request, res: Response, next: any){
     try{
-        const alternativeId = parseInt(req.params.id);
-        if (!alternativeId) res.status(400).json({message: 'id is required'});     
+        const questionId = parseInt(req.params.id);
+        if (!questionId) res.status(400).json({message: 'questionId is required'}); 
+        /* Para tratar o update de alternatives, sempre serão deletadas todas as alternativas da pergunta e 
+         * inseridas novas. Isso é necessário para facilitar o controle de quando o usuário está alterando
+         * uma alternativa existente, ou cadastrando uma nova para uma pergunta existente*/        
+        await repository.removeByQuestionId(questionId);
 
-        const alternative = req.body as IAlternative;
-        const result = await repository.set(alternativeId, alternative);
-        if (!result) return res.sendStatus(404);
-        
+        const alternatives = req.body as IAlternative[];
+        const result = await repository.add(alternatives);
+        if (!result) return res.sendStatus(404);        
         res.json(result);
 
     }catch(error){
@@ -96,8 +94,7 @@ async function deleteAlternative(req: Request, res: Response, next: any){
                 res.json(updatedAlternative);
             }
             res.sendStatus(403);
-        }       
-        
+        }        
 
     }catch(error){
         console.log(`deleteAlternative: ${error}`);
@@ -105,4 +102,4 @@ async function deleteAlternative(req: Request, res: Response, next: any){
     }
 }
 
-export default { getAlternatives, getAlternative, addAlternative, setAlternative, deleteAlternative, getNextAlternativeLetter};
+export default { getAlternatives, getAlternative, addAlternative, setAlternative, deleteAlternative};

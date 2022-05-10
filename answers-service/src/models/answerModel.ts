@@ -26,14 +26,6 @@ const Answer = database.define<IAnswerModel>('answer',{
             type: Sequelize.INTEGER.UNSIGNED,
             allowNull: false,        
         },
-        alternativeChar: {
-            type: Sequelize.STRING(150),
-            allowNull: false,
-        },
-        description: {
-            type: Sequelize.STRING(150),
-            allowNull: false,
-        },
         status: {
             type: Sequelize.SMALLINT.UNSIGNED,
             defaultValue: 100,

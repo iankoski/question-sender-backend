@@ -13,9 +13,7 @@ const answerSchema = Joi.object({
         .min(1),
     alternativeId: Joi.number()
         .integer()
-        .min(1),                
-    description: Joi.string()
-        .min(5),
+        .min(1),
     status: Joi.number()
         .integer()
         .min(100)
@@ -25,8 +23,6 @@ const answerSchema = Joi.object({
 
 const answerUpdateSchema = Joi.object({
 
-    description: Joi.string()
-        .min(5),
     status: Joi.number()
         .integer()
         .min(100)

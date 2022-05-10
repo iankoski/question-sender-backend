@@ -13,6 +13,15 @@ function validateSchema(schema: Joi.ObjectSchema<any>, req: Request, Res: Respon
     Res.status(422).end();
 }
 
+function validateArraySchema(schema: Joi.ArraySchema, req: Request, Res: Response, next: any){
+    const {error} = schema.validate(req.body);
+    if (error == null) return next();
+    const {details} = error;
+    const message = details.map(item => item.message).join(',');
+    console.log(' validateArraySchema ' + message);
+    Res.status(422).end();
+}
+
 async function validateAuth(req: Request, res: Response, next: any){
     try{
         const token = req.headers['x-access-token'] as string;
@@ -29,4 +38,4 @@ async function validateAuth(req: Request, res: Response, next: any){
     }
 }
 
-export default {validateAuth, validateSchema};
+export default {validateAuth, validateSchema, validateArraySchema};

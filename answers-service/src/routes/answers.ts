@@ -4,8 +4,14 @@ import {validateAnswerSchema, validateUpdateAnswerSchema} from './middlewares';
 import middlewareCommons from 'ms-commons/api/routes/middlewares';
 
 const router = Router();
+/* Retorna a quantidade de respostas de uma pergunta, pela alternativa */
+router.get('/answers/countbyalternative/:alternativeId', middlewareCommons.validateAuth, answersController.getAnswerCountByAlternative);
 
-router.get('/answers/:companyId', middlewareCommons.validateAuth, answersController.getAnswers);
+/* Retorna a quantidade de respostas de uma pergunta, pela pergunta */
+router.get('/answers/countbyquestion/:questionId', middlewareCommons.validateAuth, answersController.getAnswerCountByQuestion);
+
+/* Retorna a alternativa mais respondida e o número de respostas */
+router.get('/answers/mostanswered/:questionId', middlewareCommons.validateAuth, answersController.getMostAnsweredAlternative);
 
 //router.get('/answers/:questionId', middlewareCommons.validateAuth, answersController.get);
 

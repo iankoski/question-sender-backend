@@ -4,8 +4,8 @@
   "description": "serviços de crud para respostas (answer)",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && ts-node -r dotenv/config tsconfig-paths/register ./dist/answer-service/src/server",
-    "compile": "tsc && ts-node -r dotenv/config -r tsconfig-paths/register ./dist/answer-service/src/server",
+    "start": "tsc && ts-node -r dotenv/config tsconfig-paths/register ./dist/answers-service/src/server",
+    "compile": "tsc && ts-node -r dotenv/config -r tsconfig-paths/register ./dist/answers-service/src/server",
     "dev": "nodemon -e ts,json --ignore dist --exec \"npm run compile\""
   },
   "author": "juliano iankoski",

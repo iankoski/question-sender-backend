@@ -23,14 +23,11 @@ function findById(id: number) {
 }
 
 function add(alternativesList: IAlternative[]) {
-    var newAlternatives: IAlternative[];
-    return alternativeModel.bulkCreate(alternativesList);/**
-    alternativesList.map(a => {
-        let alternative = {description: a.description, questionId: a.questionId} as IAlternative;
-        console.log('teste add alternative: '+alternative);
-        //newAlternatives.push(alternativeModel.create(alternative));
-    });*/
-   
+    return alternativeModel.bulkCreate(alternativesList);   
+}
+
+function removeByQuestionId(questionId: number){
+    return alternativeModel.destroy({where: {questionId: questionId}});
 }
 
 async function set(alternativeId: number, alternative: IAlternative) {
@@ -51,4 +48,4 @@ async function removeById(id: number) {
     return alternativeModel.destroy({ where: { id: id } } as DestroyOptions<IAlternative>);
 }
 
-export default {  findById, add, set, removeById, findByQuestion };
+export default {  findById, add, set, removeById, findByQuestion, removeByQuestionId };
