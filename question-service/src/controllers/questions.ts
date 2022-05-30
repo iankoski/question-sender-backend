@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
+
 import { IQuestion } from '../models/questions';
 import repository from '../models/questionRepository';
 import controllerCommons from 'ms-commons/api/controllers/controller';
 import {QuestionStatus} from '../models/questionStatus';
 import {Token} from 'ms-commons/api/auth';
-
-const questions: IQuestion[] = [];
 
 async function getQuestions(req: Request, res: Response, next: any) {
     try {

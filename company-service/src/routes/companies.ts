@@ -9,7 +9,9 @@ router.post('/companies/login', validateLoginSchema, companiesController.loginCo
 
 router.post('/companies/logout', middlewareCommons.validateAuth, companiesController.logoutCompany);
 
-router.get('/companies/:id', middlewareCommons.validateAuth, companiesController.getCompany);
+router.post('/companies/set', middlewareCommons.validateAuth, companiesController.setCompany);
+
+router.get('/companies', middlewareCommons.validateAuth, companiesController.getCompany);
 //Também não valida
 
 /* Optado pelo patch ao invés de put pois aqui acontece um update parcial, para seguir o restfull */
@@ -17,7 +19,7 @@ router.patch('/companies/:id', middlewareCommons.validateAuth, validateUpdateCom
 
 router.delete('/companies/:id', middlewareCommons.validateAuth, companiesController.deleteCompany);
 
-router.get('/companies/', middlewareCommons.validateAuth, companiesController.getCompanies);
+//router.get('/companies/', middlewareCommons.validateAuth, companiesController.getCompanies);
 
 router.post('/companies/', validateCompanySchema, companiesController.addCompany);
 

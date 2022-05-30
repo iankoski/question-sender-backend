@@ -69,7 +69,7 @@ async function getAnswerCountByAlternative(req: Request, res: Response, next: an
     try {
         const alternativeId = parseInt(req.params.alternativeId);
         if (!alternativeId) res.status(400).json({ message: 'id is required' });
-        const result = await repository.findAndCountByQuestionId(alternativeId);
+        const result = await repository.findAndCountByAlternativeId(alternativeId);
         if (result === 0) return res.json(result);
         if (!result) return res.sendStatus(404);
         res.json(result);
@@ -83,7 +83,7 @@ async function getAnswerCountByQuestion(req: Request, res: Response, next: any) 
     try {
         const questionId = parseInt(req.params.questionId);
         if (!questionId) res.status(400).json({ message: 'id is required' });
-        const result = await repository.findAndCountByAlternativeId(questionId);
+        const result = await repository.findAndCountByQuestionId(questionId);
         if (result === 0) return res.json(result);
         if (!result) return res.sendStatus(404);
         res.json(result);
@@ -99,6 +99,8 @@ async function getMostAnsweredAlternative(req: Request, res: Response, next: any
         const questionId = parseInt(req.params.questionId);
         if (!questionId) res.status(400).json({ message: 'id is required' });
         const result = await repository.MostAnsweredAlterantive(questionId);
+        //204 No Content
+        if (!result) return res.sendStatus(204);
         res.json(result);
     } catch (error) {
         console.log(`getMostAnsweredAlterantive: ${error}`);

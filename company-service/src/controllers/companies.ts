@@ -20,12 +20,14 @@ async function getCompanies(req: Request, res: Response, next: any){
 
 async function getCompany(req: Request, res: Response, next: any) {
     try {
-        const id = parseInt(req.params.id);
+        const token = controllerCommons.getToken(res) as Token;
+        const id = token.companyId;
         if (!id) return res.status(400).json({ message: 'company id is required' });
-
         const company = await repository.findById(id);
         if (company === null) return res.sendStatus(404);
-        else res.json(company);
+        company.password = '';
+        console.log(' company '+company.userName);
+        res.json(company);
     } catch (error) {
         console.log(`getCompany: ${error}`);
         res.sendStatus(400);
@@ -48,14 +50,13 @@ async function addCompany(req: Request, res: Response, next: any) {
 
 async function setCompany(req: Request, res: Response, next: any){
     try{
-        const companyId = parseInt(req.params.id);
-        if (!companyId) res.status(400).json({message: 'id is required'});     
-
         const token = controllerCommons.getToken(res) as Token;
+        const companyId = token.companyId;
+        if (!companyId) return res.status(400).json({ message: 'company id is required' });   
         const company = req.body as ICompany;
+        console.log('DEBUG setCompany '+company.name);        
         const result = await repository.set(companyId, company);
-        if (!result) return res.sendStatus(404);
-        
+        if (!result) return res.sendStatus(404);        
         res.json(result);
 
     }catch(error){
@@ -67,11 +68,9 @@ async function setCompany(req: Request, res: Response, next: any){
 async function deleteCompany(req: Request, res: Response, next: any){
     try{
         
-        const companyId = parseInt(req.params.id);
-        
-        if (!companyId) return res.status(400).json({message: 'id is required'});
-
         const token = controllerCommons.getToken(res) as Token;
+        const companyId = token.companyId;
+        if (!companyId) return res.status(400).json({ message: 'company id is required' });
 
         if (req.query.force === 'true'){
             await repository.removeById(companyId);
@@ -117,6 +116,7 @@ async function loginCompany(req: Request, res: Response, next: any) {
         res.sendStatus(400);
     }
 }
+
 
 function logoutCompany(req: Request, res: Response, next: any){
     res.json({auth: false, token: null});

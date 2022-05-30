@@ -56,7 +56,7 @@ async function MostAnsweredAlterantive(questionId: number) {
                                                where answers.questionId = ${questionId}
                                                  and answers.status = 100
                                                 group by alternativeId
-                                                order by answersCount desc;`, {type: QueryTypes.SELECT});
+                                                order by answersCount desc;`, { type: QueryTypes.SELECT });
         return result;
 
     } catch (error) {

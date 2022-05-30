@@ -2,7 +2,7 @@ import companyModel, {ICompanyModel} from './companyModel';
 import {ICompany} from './companies';
 import {DestroyOptions, Op} from 'sequelize';
 import { CompanyStatus } from './companyStatus';
-
+import auth from '../auth';
 function findAll(includeRemoved: boolean){
     if(includeRemoved){
         return companyModel.findAll<ICompanyModel>();
@@ -24,13 +24,13 @@ async function set(companyId: number, company: ICompany){
      * o id da tabela e também o id da tabela mãe (accountId no caso) */
     const originalCompany = await companyModel.findOne({where: {id: companyId}});
     if (!originalCompany) return null;
-
     if (company.name) originalCompany.name = company.name;
     if (company.status) originalCompany.status = company.status;
-
+    if (company.urlQrCode) originalCompany.urlQrCode = company.urlQrCode;
+    if (company.password) originalCompany.password = auth.hashPassword(company.password);
     const result = await originalCompany.save();
-    company.id = result.id;
-    return company;
+    result.password = '';
+    return result;
 }
 
 function remove (id: number){
