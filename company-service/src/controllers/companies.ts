@@ -5,6 +5,7 @@ import controllerCommons from 'ms-commons/api/controllers/controller';
 import {Token} from 'ms-commons/api/auth';
 import { CompanyStatus } from '../models/companyStatus';
 import auth from '../auth';
+import { v4 as uuidv4 } from 'uuid';
 import { ICompanyModel } from 'src/models/companyModel';
 
 async function getCompanies(req: Request, res: Response, next: any){
@@ -122,4 +123,17 @@ function logoutCompany(req: Request, res: Response, next: any){
     res.json({auth: false, token: null});
 }
 
-export default { getCompanies, addCompany, getCompany, setCompany, deleteCompany, loginCompany, logoutCompany};
+async function newQRCode (req: Request, res: Response, next: any){
+    try{
+        const token = controllerCommons.getToken(res) as Token;
+        const companyId = token.companyId;    
+        if (!companyId) return res.status(400).json({ message: 'company id is required' });        
+        const newQRCode = uuidv4();
+        res.json({uuid: newQRCode});
+
+    }catch(error){
+        console.log('newQRCode '+ error);
+    }
+}
+
+export default { getCompanies, addCompany, getCompany, setCompany, deleteCompany, loginCompany, logoutCompany, newQRCode};

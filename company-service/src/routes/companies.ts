@@ -11,6 +11,8 @@ router.post('/companies/logout', middlewareCommons.validateAuth, companiesContro
 
 router.post('/companies/set', middlewareCommons.validateAuth, companiesController.setCompany);
 
+router.post('/companies/newqrcode', middlewareCommons.validateAuth, companiesController.newQRCode);
+
 router.get('/companies', middlewareCommons.validateAuth, companiesController.getCompany);
 //Também não valida
 
