@@ -54,8 +54,7 @@ async function setCompany(req: Request, res: Response, next: any){
         const token = controllerCommons.getToken(res) as Token;
         const companyId = token.companyId;
         if (!companyId) return res.status(400).json({ message: 'company id is required' });   
-        const company = req.body as ICompany;
-        console.log('DEBUG setCompany '+company.name);        
+        const company = req.body as ICompany;       
         const result = await repository.set(companyId, company);
         if (!result) return res.sendStatus(404);        
         res.json(result);
@@ -128,7 +127,7 @@ async function newQRCode (req: Request, res: Response, next: any){
         const token = controllerCommons.getToken(res) as Token;
         const companyId = token.companyId;    
         if (!companyId) return res.status(400).json({ message: 'company id is required' });        
-        const newQRCode = uuidv4();
+        const newQRCode = uuidv4(); 
         res.json({uuid: newQRCode});
 
     }catch(error){
@@ -136,4 +135,16 @@ async function newQRCode (req: Request, res: Response, next: any){
     }
 }
 
-export default { getCompanies, addCompany, getCompany, setCompany, deleteCompany, loginCompany, logoutCompany, newQRCode};
+async function getCompanyName(req: Request, res: Response, next: any){
+    try{
+        const companyId = parseInt(req.params.id);
+        if (!companyId) return res.status(400).json({ message: 'company id is required' });
+        const company = await repository.findById(companyId);
+        if (company === null) return res.sendStatus(404);
+        res.json({companyName: company.name});
+    }catch(error){
+        console.log('getCompanyName '+ error);
+    }
+}
+
+export default { getCompanies, addCompany, getCompany, setCompany, deleteCompany, loginCompany, logoutCompany, newQRCode, getCompanyName};

@@ -13,6 +13,8 @@ router.post('/companies/set', middlewareCommons.validateAuth, companiesControlle
 
 router.post('/companies/newqrcode', middlewareCommons.validateAuth, companiesController.newQRCode);
 
+router.get('/companies/companyname/:id', companiesController.getCompanyName);
+
 router.get('/companies', middlewareCommons.validateAuth, companiesController.getCompany);
 //Também não valida
 

@@ -33,6 +33,7 @@ async function set(companyId: number, company: ICompany){
     return result;
 }
 
+
 function remove (id: number){
     return companyModel.destroy({where: {id: id}} as DestroyOptions<ICompany>);
 }
