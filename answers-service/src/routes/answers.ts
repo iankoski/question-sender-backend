@@ -22,7 +22,7 @@ router.patch('/answers/:id', middlewareCommons.validateAuth, validateUpdateAnswe
 
 router.delete('/answers/:id', middlewareCommons.validateAuth, answersController.deleteAnswer);
 
-router.post('/answers/', middlewareCommons.validateAuth, answersController.addAnswer);
+router.post('/answers/', answersController.addAnswer);
 
 router.get('/answers/', middlewareCommons.validateAuth, answersController.getAnswers);
 

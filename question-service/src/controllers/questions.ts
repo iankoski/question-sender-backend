@@ -21,10 +21,7 @@ async function getQuestions(req: Request, res: Response, next: any) {
 async function getQuestion(req: Request, res: Response, next: any) {
     try {
         const id = parseInt(req.params.id);
-        const companyId = parseInt(req.params.id);
         if (!id) return res.status(400).json({ message: 'id is required' });
-
-        const token = controllerCommons.getToken(res) as Token;
         const question = await repository.findById(id);
         if (question === null) return res.status(404).json({ message: 'question not found' });
         else res.json(question);
@@ -36,10 +33,11 @@ async function getQuestion(req: Request, res: Response, next: any) {
 
 async function getQuestionsByDate(req: Request, res: Response, next: any) {
     try{
-        const companyId = parseInt(req.params.companyId);
+        const deviceId = req.params.deviceId;
+        const companyId = parseInt(req.params.companyId);        
         if (!companyId) return res.status(400).json({message: 'companyid is required'});
-        const questions = await repository.findByBetweenDate(companyId);
-        res.status(200).json(questions);
+        const questions = await repository.findByBetweenDate(companyId, deviceId);
+        res.json(questions);
     }catch(error){
         console.log(`getQuestionsByDate: ${error}`);
         res.sendStatus(400);        

@@ -5,7 +5,7 @@ import middlewareCommons from 'ms-commons/api/routes/middlewares';
 
 const router = Router();
 
-router.get('/alternatives/company/:questionId', middlewareCommons.validateAuth, alternativesController.getAlternatives);
+router.get('/alternatives/company/:questionId', alternativesController.getAlternatives);
 
 router.get('/alternatives/:id', middlewareCommons.validateAuth, alternativesController.getAlternative);
 

@@ -1,7 +1,8 @@
 import questionModel, { IQuestionModel } from './questionModel';
 import { IQuestion } from './questions';
-import { DestroyOptions, Op } from 'sequelize';
+import { DestroyOptions, Op, QueryTypes } from 'sequelize';
 import { QuestionStatus } from './questionStatus';
+import sequelize from 'ms-commons/data/db';
 
 function findAll(companyId: number, includeRemoved: boolean) {
     if (includeRemoved)
@@ -11,7 +12,7 @@ function findAll(companyId: number, includeRemoved: boolean) {
 };
 
 function findById(id: number) {
-    return questionModel.findOne<IQuestionModel>({ where: { id: id} });
+    return questionModel.findOne<IQuestionModel>({ where: { id: id } });
 }
 
 function findByCompanyId(companyId: number) {
@@ -42,16 +43,28 @@ async function removeById(id: number) {
     return questionModel.destroy({ where: { id: id } } as DestroyOptions<IQuestion>);
 }
 
-async function findByBetweenDate(companyId: number) {
-    const currentDate =  Date.now();
-    return questionModel.findAll<IQuestionModel>({
-        where: {
-            companyId: companyId,
-            status: { [Op.not]: QuestionStatus.REMOVED },
-            endDate: {[Op.gte]: currentDate},
-            startDate: {[Op.lte]: currentDate}
-        }
-    });
+async function findByBetweenDate(companyId: number, deviceId: string) {
+
+    const result = await sequelize.query(`select * 
+                                              from questions
+                                             where questions.endDate >= current_date() 
+                                               and questions.startDate <= current_date()
+                                               and questions.companyId = ${companyId}
+                                               and not exists (select 1 
+                                                                 from answers 
+                                                                where answers.questionId = questions.id and answers.deviceId = "${deviceId}");`,
+        { type: QueryTypes.SELECT });
+    
+    return result;
+    /*
+return questionModel.findAll<IQuestionModel>({
+where: {
+companyId: companyId,
+status: { [Op.not]: QuestionStatus.REMOVED },
+endDate: { [Op.gte]: currentDate },
+startDate: { [Op.lte]: currentDate }
+}
+});*/
 }
 
 export default { findAll, findById, add, set, removeById, findByCompanyId, findByBetweenDate };

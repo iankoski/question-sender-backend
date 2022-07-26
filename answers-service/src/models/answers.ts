@@ -6,5 +6,6 @@ export interface IAnswer {
     companyId: number,
     status?: number,
     questionId: number,
-    alternativeId: number
+    alternativeId: number,
+    deviceId: string
 }

@@ -5,11 +5,11 @@ import middlewareCommons from 'ms-commons/api/routes/middlewares';
 
 const router = Router();
 
-router.get('/questions/date/:companyId',middlewareCommons.validateAuth, questionsController.getQuestionsByDate);
+router.get('/questions/date/:deviceId/:companyId', questionsController.getQuestionsByDate);
 
 router.get('/questions/company', middlewareCommons.validateAuth, questionsController.getQuestions);
 
-router.get('/questions/:id', middlewareCommons.validateAuth, questionsController.getQuestion);
+router.get('/questions/:id', questionsController.getQuestion);
 
 /* Optado pelo patch ao invés de put pois aqui acontece um update parcial, para seguir o restfull */
 router.patch('/questions/:id', middlewareCommons.validateAuth, validateUpdateQuestionSchema, questionsController.setQuestion);

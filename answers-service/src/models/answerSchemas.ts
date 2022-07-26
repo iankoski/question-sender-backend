@@ -17,7 +17,10 @@ const answerSchema = Joi.object({
     status: Joi.number()
         .integer()
         .min(100)
-        .max(400)
+        .max(400),
+    deviceId: Joi.string()
+        .min(10)
+        .max(200)        
 
 })
 

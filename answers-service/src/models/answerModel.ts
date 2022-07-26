@@ -30,7 +30,11 @@ const Answer = database.define<IAnswerModel>('answer',{
             type: Sequelize.SMALLINT.UNSIGNED,
             defaultValue: 100,
             allowNull: false
-        }         
+        },
+        deviceId: {
+            type: Sequelize.STRING(200),
+            allowNull: false
+        }   
 });
 
 export default Answer;

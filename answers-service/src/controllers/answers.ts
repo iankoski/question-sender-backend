@@ -37,7 +37,9 @@ async function getAnswer(req: Request, res: Response, next: any) {
 
 async function addAnswer(req: Request, res: Response, next: any) {
     try {
+        
         const newAnswer = req.body as IAnswer;
+        console.log('addAnswer '+newAnswer.alternativeId + ' newAnswer.companyId '+newAnswer.companyId + ' newAnswer.questionId '+newAnswer.questionId+' newAnswer.deviceId '+newAnswer.deviceId);
         const result = await repository.add(newAnswer);
         newAnswer.id = result.id;
         res.status(201).json(newAnswer);
