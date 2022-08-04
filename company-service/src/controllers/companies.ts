@@ -28,6 +28,7 @@ async function getCompany(req: Request, res: Response, next: any) {
         if (company === null) return res.sendStatus(404);
         company.password = '';
         console.log(' company '+company.userName);
+        console.log(' companyid '+company.id);
         res.json(company);
     } catch (error) {
         console.log(`getCompany: ${error}`);
@@ -147,4 +148,16 @@ async function getCompanyName(req: Request, res: Response, next: any){
     }
 }
 
-export default { getCompanies, addCompany, getCompany, setCompany, deleteCompany, loginCompany, logoutCompany, newQRCode, getCompanyName};
+async function getCompanyUid (req: Request, res: Response, next: any){
+    try{
+        const companyId = parseInt(req.params.id);
+        if (!companyId) return res.status(400).json({ message: 'company id is required' });
+        const company = await repository.findById(companyId);
+        if (company === null) return res.sendStatus(404);
+        res.json({companyUid: company.urlQrCode});        
+    }catch(error){
+        console.log(`getCompanyUid ${error}`);
+    }
+}
+
+export default { getCompanies, addCompany, getCompany, setCompany, deleteCompany, loginCompany, logoutCompany, newQRCode, getCompanyName, getCompanyUid};

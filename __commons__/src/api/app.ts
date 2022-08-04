@@ -20,6 +20,7 @@ export default(router: Router)=>{
         origin: getCorsOrigin(),
         optionsSuccessStatus: 200
     }
+    
     app.use(cors(corsOptions));
     app.use(router);  
 

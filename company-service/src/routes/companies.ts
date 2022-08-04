@@ -15,6 +15,8 @@ router.post('/companies/newqrcode', middlewareCommons.validateAuth, companiesCon
 
 router.get('/companies/companyname/:id', companiesController.getCompanyName);
 
+router.get('/companies/companyuid/:id', companiesController.getCompanyUid);
+
 router.get('/companies', middlewareCommons.validateAuth, companiesController.getCompany);
 //Também não valida
 
@@ -22,8 +24,6 @@ router.get('/companies', middlewareCommons.validateAuth, companiesController.get
 router.patch('/companies/:id', middlewareCommons.validateAuth, validateUpdateCompanySchema, companiesController.setCompany);
 
 router.delete('/companies/:id', middlewareCommons.validateAuth, companiesController.deleteCompany);
-
-//router.get('/companies/', middlewareCommons.validateAuth, companiesController.getCompanies);
 
 router.post('/companies/', validateCompanySchema, companiesController.addCompany);
 
