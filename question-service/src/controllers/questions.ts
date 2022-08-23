@@ -79,13 +79,11 @@ async function setQuestion(req: Request, res: Response, next: any){
 
 async function deleteQuestion(req: Request, res: Response, next: any){
     try{
-        
+        console.log('debugando 1');
         const questionId = parseInt(req.params.id);
         
         if (!questionId) return res.status(400).json({message: 'id is required'});
-
         const token = controllerCommons.getToken(res) as Token;
-
         if (req.query.force === 'true'){
             await repository.removeById(questionId);
             res.sendStatus(204);//sucesso sem conteúdo para retornar
@@ -93,11 +91,11 @@ async function deleteQuestion(req: Request, res: Response, next: any){
             const questionParams = {
                 status: QuestionStatus.REMOVED
             } as IQuestion;
-            const updatedQuestion = repository.set(questionId, questionParams);
+            const updatedQuestion = await repository.set(questionId, questionParams);
             if (updatedQuestion) {
-                res.json(updatedQuestion);
+                res.status(200).json(updatedQuestion);
             }
-            res.sendStatus(403);
+            console.log('debugando 7');           
         }       
         
 
