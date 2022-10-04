@@ -50,6 +50,7 @@ async function findByBetweenDate(companyId: number, deviceId: string) {
                                              where questions.endDate >= current_date() 
                                                and questions.startDate <= current_date()
                                                and questions.companyId = ${companyId}
+                                               and questions.status not in (${QuestionStatus.REMOVED})
                                                and not exists (select 1 
                                                                  from answers 
                                                                 where answers.questionId = questions.id and answers.deviceId = "${deviceId}");`,

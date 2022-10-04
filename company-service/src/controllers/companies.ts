@@ -39,6 +39,8 @@ async function addCompany(req: Request, res: Response, next: any) {
     try {
         const newCompany = req.body as ICompany;
         newCompany.password = auth.hashPassword(newCompany.password);
+        const newQRCode = uuidv4();
+        newCompany.urlQrCode = newQRCode;
         const result = await repository.add(newCompany);
         newCompany.password = '';
         newCompany.id = result.id;
@@ -53,7 +55,7 @@ async function setCompany(req: Request, res: Response, next: any) {
     try {
         const token = controllerCommons.getToken(res) as Token;
         const companyId = token.companyId;
-        if (!companyId) return res.status(400).json({ message: 'company id is required' });
+        if (!companyId) return res.status(400).json({ message: 'company id is required' });        
         const company = req.body as ICompany;
         const result = await repository.set(companyId, company);
         if (!result) return res.sendStatus(404);
