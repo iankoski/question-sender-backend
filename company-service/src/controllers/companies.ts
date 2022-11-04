@@ -57,9 +57,9 @@ async function setCompany(req: Request, res: Response, next: any) {
         const companyId = token.companyId;
         if (!companyId) return res.status(400).json({ message: 'company id is required' });        
         const company = req.body as ICompany;
-        const result = await repository.set(companyId, company);
-        if (!result) return res.sendStatus(404);
-        res.json(result);
+        const companyResult = await repository.set(companyId, company);
+        if (!companyResult) return res.sendStatus(404);
+        res.json(companyResult);
 
     } catch (error) {
         console.log(`setCompany: ${error}`);

@@ -44,13 +44,12 @@ async function getNewsByDate(req: Request, res: Response, next: any) {
 
 async function addNew(req: Request, res: Response, next: any) {
     try {
-        const newNew = req.body as INew;
+        const newsResult = req.body as INew;
         const token = controllerCommons.getToken(res) as Token;
-        newNew.companyId = token.companyId;
-        const result = await repository.add(newNew);
-        newNew.id = result.id; 
-        console.log('newNew: '+newNew.id);
-        res.status(201).json(newNew);
+        newsResult.companyId = token.companyId;
+        const result = await repository.add(newsResult);
+        newsResult.id = result.id; 
+        res.status(201).json(newsResult);
     } catch(error) {
         console.log(error);
         res.sendStatus(400);

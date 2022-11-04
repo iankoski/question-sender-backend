@@ -5,8 +5,6 @@ import controllerCommons from 'ms-commons/api/controllers/controller';
 import { AnswerStatus } from '../models/answerStatus';
 import { Token } from 'ms-commons/api/auth';
 
-const answers: IAnswer[] = [];
-
 async function getAnswers(req: Request, res: Response, next: any) {
     try {
         const token = controllerCommons.getToken(res) as Token;
