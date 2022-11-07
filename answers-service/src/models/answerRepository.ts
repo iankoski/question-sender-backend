@@ -64,4 +64,12 @@ async function MostAnsweredAlterantive(questionId: number) {
     };
 }
 
-export default { findAll, findById, add, set, removeById, findByQuestionId, findAndCountByAlternativeId, MostAnsweredAlterantive, findAndCountByQuestionId };
+async function findByDeviceId(deviceId: string){
+    try{
+        return answerModel.findAll<IAnswerModel>({ where: { deviceId: deviceId } });
+    }catch(error){
+        console.log('findByDeviceId '+error);
+    }
+}
+
+export default { findAll, findById, add, set, removeById, findByQuestionId, findAndCountByAlternativeId, MostAnsweredAlterantive, findAndCountByQuestionId, findByDeviceId };

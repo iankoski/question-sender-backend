@@ -7,6 +7,9 @@ const router = Router();
 /* Retorna a quantidade de respostas de uma pergunta, pela alternativa */
 router.get('/answers/countbyalternative/:alternativeId', middlewareCommons.validateAuth, answersController.getAnswerCountByAlternative);
 
+/* Retorna a lista de respostas por deviceId */
+router.get('/answers/answersbydeviceid/:deviceId', answersController.getAnsweredQuestionByDeviceId);
+
 /* Retorna a quantidade de respostas de uma pergunta, pela pergunta */
 router.get('/answers/countbyquestion/:questionId', middlewareCommons.validateAuth, answersController.getAnswerCountByQuestion);
 

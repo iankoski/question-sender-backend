@@ -7,6 +7,8 @@ const router = Router();
 
 router.get('/questions/date/:deviceId/:companyId', questionsController.getQuestionsByDate);
 
+//router.get('/questions/teste/:deviceId', questionsController.getQuestionsByDate);
+
 router.get('/questions/company', middlewareCommons.validateAuth, questionsController.getQuestions);
 
 router.get('/questions/:id', questionsController.getQuestion);

@@ -138,4 +138,10 @@ async function deleteAnswer(req: Request, res: Response, next: any) {
     }
 }
 
-export default { getAnswers, getAnswer, addAnswer, setAnswer, deleteAnswer, getAnswerCountByAlternative, getMostAnsweredAlternative, getAnswerCountByQuestion};
+async function getAnsweredQuestionByDeviceId(req: Request, res: Response, next: any) {    
+    const deviceId = req.params.deviceId;
+    const result = await repository.findByDeviceId(deviceId);
+    res.json(result);
+}
+
+export default { getAnswers, getAnswer, addAnswer, setAnswer, deleteAnswer, getAnswerCountByAlternative, getMostAnsweredAlternative, getAnswerCountByQuestion, getAnsweredQuestionByDeviceId};

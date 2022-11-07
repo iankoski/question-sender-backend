@@ -35,7 +35,7 @@ async function getQuestionsByDate(req: Request, res: Response, next: any) {
     try{
         const deviceId = req.params.deviceId;
         const companyId = parseInt(req.params.companyId);        
-        if (!companyId) return res.status(400).json({message: 'companyid is required'});
+        //if (!companyId) return res.status(400).json({message: 'companyid is required'});
         const questions = await repository.findByBetweenDate(companyId, deviceId);
         res.json(questions);
     }catch(error){
