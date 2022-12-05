@@ -1,4 +1,4 @@
-import {Router, Request, Response} from 'express';
+import {Router} from 'express';
 import newsController from '../controllers/news';
 import {validateNewSchema, validateUpdateNewSchema} from './middlewares';
 import middlewareCommons from 'ms-commons/api/routes/middlewares';
@@ -19,6 +19,5 @@ router.delete('/news/:id', middlewareCommons.validateAuth, newsController.delete
 router.post('/news/', middlewareCommons.validateAuth, validateNewSchema, newsController.addNew);
 
 router.get('/news/', middlewareCommons.validateAuth, newsController.getNews);
-
 
 export default router;

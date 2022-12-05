@@ -1,9 +1,3 @@
 <resources>
-    <string name="app_name">quesionSender</string>
-    <string name="hello_first_fragment">Opa 1</string>
-    <string name="next">Proximo</string>
-    <string name="first_fragment_label">Primeiro Fragmento</string>
-    <string name="second_fragment_label">Segundo Fragmento</string>
-    <string name="previous">Anterior</string>
-    <string name="action_settings">Ajustes</string>
+    <string name="app_name">TCC</string>
 </resources>

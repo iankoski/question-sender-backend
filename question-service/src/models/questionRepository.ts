@@ -50,6 +50,7 @@ async function findByBetweenDate(companyId: number, deviceId: string) {
     
     var questionIds;
     console.log('length '+response.data.length);
+    questionIds = "0 ";
     for(let i = 0; i < response.data.length; i++){
         console.log('mais um teste '+response.data[i].questionId);
         if (i == 0){
